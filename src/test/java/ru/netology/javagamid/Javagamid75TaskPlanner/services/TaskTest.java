@@ -38,11 +38,11 @@ public class TaskTest {
 
     @Test
     public void findQueryInEpicFalse() {
-        String[] subtasks = {"Позвонить родителям", "Купить молоко", "Купить яйца", "Купить хлеб"};
-        Task epic = new Epic(12, subtasks);
+        String query = "Купить хлеб";
+        Task epic = new Epic(1,new String[] {"Позвонить родителям", "Купить молоко", "Купить яйца"});
 
-        boolean expected = true;
-        boolean actual = epic.matches("яйца");
+        boolean expected = false;
+        boolean actual = epic.matches(query);
 
         Assertions.assertEquals(expected, actual);
     }
@@ -86,4 +86,5 @@ public class TaskTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
 }

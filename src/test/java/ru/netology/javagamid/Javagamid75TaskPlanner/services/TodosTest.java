@@ -211,4 +211,36 @@ public class TodosTest {
 
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenSearchingWithNoMatches() {
+        Todos todos = new Todos();
+        todos.add(new SimpleTask(1, "Позвонить родителям"));
+        todos.add(new Epic(2, new String[]{"Купить молоко"}));
+        Task[] expected = {};
+        Task[] actual = todos.search("Купить яйца");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldReturnArrayOfTasksWhenSearchingWithOneMatch() {
+        Todos todos = new Todos();
+        todos.add(new SimpleTask(1, "Купить молоко"));
+        todos.add(new Epic(2, new String[]{"Купить хлеб"}));
+        Task[] expected = {new SimpleTask(1, "Купить молоко")};
+        Task[] actual = todos.search("молоко");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldReturnArrayOfAllTasksWhenSearchingWithEmptyQuery() {
+        Todos todos = new Todos();
+        todos.add(new SimpleTask(1, "Купить молоко"));
+        todos.add(new Epic(2, new String[]{"Позвонить родителям"}));
+        Task[] expected = {new SimpleTask(1, "Купить молоко"), new Epic(2, new String[]{"Позвонить родителям"})};
+        Task[] actual = todos.search("");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+
 }
